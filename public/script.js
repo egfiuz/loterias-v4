@@ -2,7 +2,7 @@
 const API_URL = "https://loterias-v4-957072274278.southamerica-east1.run.app/api";
 
 async function gerarJogo(tipo) {
-    // 1. Identifica qual card atualizar (mega ou loto)
+    // 1. Identifica qual card atualizar
     const cardId = tipo === 'mega' ? 'resultado-mega' : 'resultado-loto';
     const display = document.getElementById(cardId);
 
@@ -15,10 +15,17 @@ async function gerarJogo(tipo) {
         const response = await fetch(API_URL);
         const data = await response.json();
 
-        // 3. Exibe a resposta vinda do Google Cloud
-        if (display) {
+        // 3. Lógica para exibir os números sorteados
+        // Pegamos os números dentro de data.jogos[tipo]
+        const numerosSorteados = data.jogos[tipo];
+        
+        if (display && numerosSorteados) {
+            // .join(' - ') coloca um traço entre os números para ficar bonito
+            display.innerHTML = `<b style="color: #00ff88; font-size: 1.2rem;">${numerosSorteados.join(' - ')}</b>`;
+        } else {
             display.innerHTML = `<b style="color: #00ff88;">${data.mensagem}</b>`;
         }
+
     } catch (error) {
         console.error("Erro na conexão:", error);
         if (display) display.innerText = "Erro ao conectar.";
