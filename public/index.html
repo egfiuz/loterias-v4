@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SuperLoterias API | Inteligência na Nuvem</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">🍀 SuperLoterias API</div>
+        <nav>
+            <a href="#">Início</a>
+            <a href="#">A Ciência</a>
+            <a href="#">Contato</a>
+            <button class="btn-vip">Entrar VIP</button>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1>Super Loterias API</h1>
+        <p class="subtitle">Gere combinações numéricas otimizadas via Força Bruta aliada a Filtros Estatísticos de Alta Performance.</p>
+
+        <div class="cards-grid">
+            <div class="card mega">
+                <h2>MEGA-SENA</h2>
+                <p>Sorteia 6 de 60</p>
+                <div id="resultado-mega" class="resultado-box">
+                    Nenhum jogo gerado ainda. Clique no botão abaixo.
+                </div>
+                <button onclick="gerarJogo('mega')" class="btn-gerar">Gerar Jogo Otimizado</button>
+            </div>
+
+            <div class="card loto">
+                <h2>LOTOFÁCIL</h2>
+                <p>Sorteia 15 de 25</p>
+                <div id="resultado-loto" class="resultado-box">
+                    Nenhum jogo gerado ainda. Clique no botão abaixo.
+                </div>
+                <button onclick="gerarJogo('loto')" class="btn-gerar">Gerar Jogo Otimizado</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
