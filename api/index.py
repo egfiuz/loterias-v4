@@ -1,12 +1,9 @@
 from flask import Flask, jsonify
-from flask_cors import CORS
+from flask_cors import CORS # Certifique-se que instalou via requirements.txt
 
 app = Flask(__name__)
-CORS(app)
+CORS(app) # Isso libera o acesso para qualquer origem, incluindo sua Vercel
 
-@app.route('/api', methods=['GET'])
-def check_v4():
-    return jsonify({"status": "v4 operacional", "mensagem": "Estrutura MKDIR funcionou!"})
-
-# Exporta para a Vercel
-app = app
+@app.route('/api')
+def index():
+    return jsonify({"mensagem": "Estrutura Google Cloud Run ativa!", "status": "v4 operacional"})
