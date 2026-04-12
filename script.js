@@ -66,21 +66,42 @@ async function fazerCadastro(event) {
 }
 
 // ==========================================
-// 3. SISTEMA DE LOGIN (A Fechadura)
+// 3. SISTEMA DE LOGIN REAL (A Fechadura do Banco de Dados)
 // ==========================================
-function fazerLogin(event) {
+async function fazerLogin(event) {
     event.preventDefault(); 
     
     const email = document.getElementById('email_login').value;
     const senha = document.getElementById('senha_login').value;
 
-    if (email && senha) {
-        localStorage.setItem('userEmail', email);
-        localStorage.setItem('userSenha', senha);
-        alert("Acesso liberado! O sistema já sabe quem você é.");
-        fecharModal(); 
-    } else {
+    if (!email || !senha) {
         alert("Preencha e-mail e senha!");
+        return;
+    }
+
+    try {
+        // Agora bate no banco de dados de verdade!
+        const response = await fetch(`${API_URL}/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, senha: senha })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            // Se o Python disse que existe, nós liberamos!
+            localStorage.setItem('userEmail', email);
+            localStorage.setItem('userSenha', senha);
+            alert(data.msg + " Acesso liberado!");
+            fecharModal(); 
+        } else {
+            // Se errou a senha ou não existe:
+            alert("Acesso Negado: " + data.detail);
+        }
+    } catch (error) {
+        console.error("Erro no login:", error);
+        alert("Falha ao conectar com o servidor para login.");
     }
 }
 
