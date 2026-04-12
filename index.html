@@ -140,6 +140,39 @@
             <span style="color: #f1c40f; font-size: 16px;"><b>PIX:</b> <span style="color: #fff;">(12) 98819-9765</span></span>
         </div>
     </footer> 
+
+    <div style="text-align: center; padding: 40px 20px; color: #aaa; font-size: 15px; margin-top: 50px; border-top: 1px solid #333; background-color: #1a1a1a;">
+        <p style="margin-bottom: 15px;">Desenvolvido com muito código, dedicação e ☕ por <b>Eliene Fiuza</b></p>
+        
+        <p style="color: #2ecc71; font-weight: bold; font-size: 16px; margin-bottom: 5px;">
+            🍀 A nossa inteligência te ajudou a faturar um bom prêmio?
+        </p>
+        
+        <p style="margin-bottom: 25px; font-size: 14px; color: #888;">
+            Apoie o meu trabalho e ajude a financiar as noites em claro programando! Qualquer valor para o cafezinho é super bem-vindo. 🥰
+        </p>
+        
+        <div style="background: #2a2a2a; display: inline-block; padding: 25px; border-radius: 12px; border: 2px dashed #f1c40f; box-shadow: 0 4px 15px rgba(241, 196, 15, 0.1);">
+            <img src="qrcode.png" alt="QR Code PIX Eliene" style="width: 150px; height: 150px; border-radius: 10px; margin-bottom: 15px;">
+            <br>
+            <span style="color: #f1c40f; font-size: 16px;"><b>PIX:</b> <span style="color: #fff;">(12) 98819-9765</span></span>
+        </div>
+    </div>
+
+    <section style="max-width: 800px; margin: 40px auto; padding: 25px; background: #1a1a1a; border-radius: 10px; border: 1px solid #333;">
+        <h2 style="color: #3498db; text-align: center; margin-top: 0;">💬 O que dizem sobre a API</h2>
+        
+        <div style="margin-bottom: 25px; display: flex; flex-direction: column; gap: 10px;">
+            <input type="text" id="nome_comentario" placeholder="Seu Nome" style="padding: 12px; border-radius: 5px; border: 1px solid #333; background: #2a2a2a; color: white;" required>
+            <textarea id="texto_comentario" placeholder="Deixe seu depoimento ou sugestão..." rows="3" style="padding: 12px; border-radius: 5px; border: 1px solid #333; background: #2a2a2a; color: white; resize: vertical;" required></textarea>
+            <button onclick="enviarComentario()" style="padding: 12px; background: #3498db; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; transition: 0.3s;">Publicar Comentário</button>
+        </div>
+
+        <div id="lista_comentarios" style="display: flex; flex-direction: column; gap: 15px;">
+            <p style="text-align: center; color: #888;">Carregando depoimentos...</p>
+        </div>
+    </section>
+
     <script src="script.js?v=5.0"></script>
 </body>
 </html>
