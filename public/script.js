@@ -1,5 +1,5 @@
 // Endereço da sua inteligência no Google Cloud
-const API_URL = "https://loterias-v4-957072274278.southamerica-east1.run.app/api";
+const API_URL = "https://loterias-v4-957072274278.southamerica-east1.run.app";
 
 async function gerarJogo(tipo) {
     // 1. Identifica qual card atualizar
@@ -30,4 +30,13 @@ async function gerarJogo(tipo) {
         console.error("Erro na conexão:", error);
         if (display) display.innerText = "Erro ao conectar.";
     }
+}
+// FUNÇÃO DA FECHADURA
+function fazerLogin(event) {
+    // ... (todo o código da função que passei acima)
+}
+
+// FUNÇÃO DO MOTOR
+async function gerarPalpiteMegaSena() {
+    // ... (todo o código da função que passei acima)
 }
