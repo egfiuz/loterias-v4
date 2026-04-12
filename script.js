@@ -102,3 +102,60 @@ async function gerarJogo(tipo) {
         alert("Falha de comunicação.");
     }
 }
+
+// --- LÓGICA DO SISTEMA DE COMENTÁRIOS RAIZ ---
+
+async function carregarComentarios() {
+    try {
+        const response = await fetch(`${API_URL}/comentarios`);
+        const comentarios = await response.json();
+        const lista = document.getElementById('lista_comentarios');
+        lista.innerHTML = ''; 
+
+        if (comentarios.length === 0) {
+            lista.innerHTML = '<p style="text-align: center; color: #888;">Seja o primeiro a comentar e testar a nossa API!</p>';
+            return;
+        }
+
+        comentarios.forEach(c => {
+            lista.innerHTML += `
+                <div style="background: #2a2a2a; padding: 15px; border-radius: 8px; border-left: 4px solid #3498db;">
+                    <strong style="color: #fff;">${c.nome}</strong>
+                    <p style="color: #aaa; margin: 5px 0 0 0; font-size: 14px;">${c.texto}</p>
+                </div>
+            `;
+        });
+    } catch (error) {
+        console.log("Erro ao carregar comentários:", error);
+    }
+}
+
+async function enviarComentario() {
+    const nome = document.getElementById('nome_comentario').value;
+    const texto = document.getElementById('texto_comentario').value;
+
+    if (!nome || !texto) {
+        alert("Preencha o seu nome e o comentário!");
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/comentar`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nome: nome, texto: texto })
+        });
+
+        if (response.ok) {
+            document.getElementById('nome_comentario').value = '';
+            document.getElementById('texto_comentario').value = '';
+            carregarComentarios(); 
+        } else {
+            alert("Erro ao enviar o comentário.");
+        }
+    } catch (error) {
+        alert("Falha de conexão com o servidor.");
+    }
+}
+
+window.onload = carregarComentarios;
