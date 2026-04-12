@@ -1,7 +1,9 @@
 // A URL mágica do nosso servidor no Google Cloud
 const API_URL = "https://loterias-v4-957072274278.southamerica-east1.run.app";
 
-// --- CONTROLE VISUAL DOS MODAIS ---
+// ==========================================
+// 1. CONTROLE VISUAL DOS MODAIS
+// ==========================================
 function abrirModal() {
     document.getElementById('modal-login').style.display = 'flex';
 }
@@ -24,7 +26,9 @@ function fecharModalCadastro() {
     document.getElementById('modal-cadastro').style.display = 'none';
 }
 
-// --- 1. FUNÇÃO DE CADASTRO VIP ---
+// ==========================================
+// 2. SISTEMA DE CADASTRO VIP
+// ==========================================
 async function fazerCadastro(event) {
     event.preventDefault();
     
@@ -38,7 +42,6 @@ async function fazerCadastro(event) {
     }
 
     try {
-        // Agora sim, apontando para a nuvem do Google na rota certa!
         const response = await fetch(`${API_URL}/cadastrar`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -62,7 +65,9 @@ async function fazerCadastro(event) {
     }
 }
 
-// --- 2. FUNÇÃO DA FECHADURA (LOGIN) ---
+// ==========================================
+// 3. SISTEMA DE LOGIN (A Fechadura)
+// ==========================================
 function fazerLogin(event) {
     event.preventDefault(); 
     
@@ -79,8 +84,10 @@ function fazerLogin(event) {
     }
 }
 
-// --- 3. FUNÇÃO DO MOTOR (GERAR JOGO MEGA-SENA) ---
-async function gerarPalpiteMegaSena() {
+// ==========================================
+// 4. O MOTOR UNIVERSAL DE LOTERIAS
+// ==========================================
+async function gerarJogo(tipo) {
     const emailLogado = localStorage.getItem('userEmail');
     const senhaLogada = localStorage.getItem('userSenha');
 
@@ -90,13 +97,13 @@ async function gerarPalpiteMegaSena() {
     }
 
     try {
-        const botao = document.getElementById('btn_mega'); 
+        const botao = document.getElementById(`btn_${tipo}`); 
         botao.innerText = "Processando IA...";
 
         const response = await fetch(`${API_URL}/gerar-palpite`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: emailLogado, senha: senhaLogada })
+            body: JSON.stringify({ email: emailLogado, senha: senhaLogada, tipo: tipo })
         });
 
         const data = await response.json();
@@ -104,8 +111,8 @@ async function gerarPalpiteMegaSena() {
         if (response.ok) {
             const dezenasFormatadas = data.dezenas.map(d => d.toString().padStart(2, '0')).join(' - ');
             
-            document.getElementById('numeros_mega').innerText = dezenasFormatadas;
-            document.getElementById('analise_mega').innerHTML = `
+            document.getElementById(`numeros_${tipo}`).innerText = dezenasFormatadas;
+            document.getElementById(`analise_${tipo}`).innerHTML = `
                 Soma Gauss: ${data.analise.soma_gauss} | 
                 ${data.analise.pares} Pares / ${data.analise.impares} Ímpares
             `;
@@ -117,6 +124,6 @@ async function gerarPalpiteMegaSena() {
 
     } catch (error) {
         console.error("Erro:", error);
-        alert("Falha na comunicação com a IA.");
+        alert("Falha na comunicação com a IA estatística.");
     }
 }
