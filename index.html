@@ -22,8 +22,7 @@
 
         <div class="cards-grid">
             <div class="card mega">
-                <h2>MEGA-SENA</h2>
-                <p>Sorteia 6 de 60</p>
+                <h2>MEGA-SENA</h2><p>Sorteia 6 de 60</p>
                 <div id="resultado-mega" class="resultado-box" style="min-height: 80px;">
                     <h2 id="numeros_mega" style="letter-spacing: 3px; margin: 10px 0;">Nenhum jogo gerado ainda.</h2>
                     <p id="analise_mega" style="font-size: 12px; color: #aaa; margin: 0;"></p>
@@ -32,8 +31,7 @@
             </div>
 
             <div class="card loto">
-                <h2>LOTOFÁCIL</h2>
-                <p>Sorteia 15 de 25</p>
+                <h2>LOTOFÁCIL</h2><p>Sorteia 15 de 25</p>
                 <div id="resultado-lotofacil" class="resultado-box" style="min-height: 80px;">
                     <h2 id="numeros_lotofacil" style="letter-spacing: 3px; margin: 10px 0;">Nenhum jogo gerado ainda.</h2>
                     <p id="analise_lotofacil" style="font-size: 12px; color: #aaa; margin: 0;"></p>
@@ -42,8 +40,7 @@
             </div>
 
             <div class="card quina">
-                <h2 style="color: #9b59b6;">QUINA</h2>
-                <p>Sorteia 5 de 80</p>
+                <h2 style="color: #9b59b6;">QUINA</h2><p>Sorteia 5 de 80</p>
                 <div id="resultado-quina" class="resultado-box" style="min-height: 80px;">
                     <h2 id="numeros_quina" style="letter-spacing: 3px; margin: 10px 0;">Nenhum jogo gerado ainda.</h2>
                     <p id="analise_quina" style="font-size: 12px; color: #aaa; margin: 0;"></p>
@@ -52,8 +49,7 @@
             </div>
 
             <div class="card lotomania">
-                <h2 style="color: #f39c12;">LOTOMANIA</h2>
-                <p>Sorteia 50 de 100</p>
+                <h2 style="color: #f39c12;">LOTOMANIA</h2><p>Sorteia 50 de 100</p>
                 <div id="resultado-lotomania" class="resultado-box" style="min-height: 80px;">
                     <h2 id="numeros_lotomania" style="letter-spacing: 2px; font-size: 16px; margin: 10px 0;">Nenhum jogo gerado ainda.</h2>
                     <p id="analise_lotomania" style="font-size: 12px; color: #aaa; margin: 0;"></p>
@@ -62,8 +58,7 @@
             </div>
 
             <div class="card timemania">
-                <h2 style="color: #f1c40f;">TIMEMANIA</h2>
-                <p>Sorteia 10 de 80</p>
+                <h2 style="color: #f1c40f;">TIMEMANIA</h2><p>Sorteia 10 de 80</p>
                 <div id="resultado-timemania" class="resultado-box" style="min-height: 80px;">
                     <h2 id="numeros_timemania" style="letter-spacing: 3px; margin: 10px 0;">Nenhum jogo gerado ainda.</h2>
                     <p id="analise_timemania" style="font-size: 12px; color: #aaa; margin: 0;"></p>
@@ -72,8 +67,7 @@
             </div>
 
             <div class="card duplasena">
-                <h2 style="color: #e74c3c;">DUPLA SENA</h2>
-                <p>Sorteia 6 de 50</p>
+                <h2 style="color: #e74c3c;">DUPLA SENA</h2><p>Sorteia 6 de 50</p>
                 <div id="resultado-duplasena" class="resultado-box" style="min-height: 80px;">
                     <h2 id="numeros_duplasena" style="letter-spacing: 3px; margin: 10px 0;">Nenhum jogo gerado ainda.</h2>
                     <p id="analise_duplasena" style="font-size: 12px; color: #aaa; margin: 0;"></p>
@@ -86,47 +80,35 @@
     <div id="modal-login" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center;">
         <div style="background: #1a1a1a; padding: 30px; border-radius: 10px; text-align: center; border: 2px solid #2ecc71; width: 300px; position: relative;">
             <button onclick="fecharModal()" style="position: absolute; top: 10px; right: 15px; background: none; border: none; color: white; cursor: pointer; font-size: 16px;">X</button>
-            
             <h2 style="color: #2ecc71; margin-top: 0;">Entrar no Sistema</h2>
-            <p style="color: #888; font-size: 12px; margin-bottom: 20px;">Acesso restrito à API integrada a Filtros</p>
-            
             <input type="email" id="email_login" placeholder="Seu E-mail" style="width: 90%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #333; background: #2a2a2a; color: white;" required>
             <input type="password" id="senha_login" placeholder="Sua Senha" style="width: 90%; padding: 10px; margin-bottom: 20px; border-radius: 5px; border: 1px solid #333; background: #2a2a2a; color: white;" required>
-            
             <button onclick="fazerLogin(event)" style="width: 100%; padding: 12px; background: #2ecc71; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">Acessar API</button>
-            
-            <p style="color: #888; font-size: 14px; margin-top: 15px;">
-                Ainda não tem conta? <a href="#" onclick="trocarParaCadastro()" style="color: #2ecc71; text-decoration: none; font-weight: bold;">Cadastre-se</a>
-            </p>
+            <p style="color: #888; font-size: 14px; margin-top: 15px;">Ainda não tem conta? <a href="#" onclick="trocarParaCadastro()" style="color: #2ecc71; text-decoration: none; font-weight: bold;">Cadastre-se</a></p>
         </div>
     </div>
 
     <div id="modal-cadastro" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center;">
         <div style="background: #1a1a1a; padding: 30px; border-radius: 10px; text-align: center; border: 2px solid #2ecc71; width: 300px; position: relative;">
             <button onclick="fecharModalCadastro()" style="position: absolute; top: 10px; right: 15px; background: none; border: none; color: white; cursor: pointer; font-size: 16px;">X</button>
-            
             <h2 style="color: #2ecc71; margin-top: 0;">Criar Conta VIP</h2>
-            
             <input type="text" id="nome_cad" placeholder="Seu Nome" style="width: 90%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #333; background: #2a2a2a; color: white;" required>
             <input type="email" id="email_cad" placeholder="Seu E-mail" style="width: 90%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #333; background: #2a2a2a; color: white;" required>
             <input type="password" id="senha_cad" placeholder="Sua Senha" style="width: 90%; padding: 10px; margin-bottom: 20px; border-radius: 5px; border: 1px solid #333; background: #2a2a2a; color: white;" required>
-            
             <button onclick="fazerCadastro(event)" style="width: 100%; padding: 12px; background: #55efc4; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; color: #000;">Cadastrar</button>
-            
-            <p style="color: #888; font-size: 14px; margin-top: 15px;">
-                Já tem uma conta? <a href="#" onclick="trocarParaLogin()" style="color: #2ecc71; text-decoration: none; font-weight: bold;">Faça Login</a>
-            </p>
+            <p style="color: #888; font-size: 14px; margin-top: 15px;">Já tem uma conta? <a href="#" onclick="trocarParaLogin()" style="color: #2ecc71; text-decoration: none; font-weight: bold;">Faça Login</a></p>
         </div>
     </div>
+
     <div id="modal-ciencia" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center;">
         <div style="background: #1a1a1a; padding: 30px; border-radius: 10px; text-align: left; border: 2px solid #9b59b6; width: 600px; max-width: 90%; position: relative; color: white;">
             <button onclick="fecharCiencia()" style="position: absolute; top: 10px; right: 15px; background: none; border: none; color: white; cursor: pointer; font-size: 16px;">X</button>
             <h2 style="color: #9b59b6; margin-top: 0; text-align: center;">A Ciência por trás dos Números</h2>
             <p>O <b>SuperLoterias API</b> não depende de sorte, depende de matemática. Nosso motor utiliza conceitos avançados de estatística para filtrar as piores combinações.</p>
             <ul>
-                <li><b>Curva de Gauss:</b> Eliminamos jogos onde a soma das dezenas foge do padrão histórico (nem muito altos, nem muito baixos).</li>
-                <li><b>Filtro de Paridade:</b> Equilibramos a quantidade de números Pares e Ímpares, seguindo a tendência de 90% dos sorteios reais.</li>
-                <li><b>Força Bruta Otimizada:</b> O algoritmo gera milhares de jogos em milissegundos e só entrega para você aquele que passa em todos os testes matemáticos!</li>
+                <li><b>Curva de Gauss:</b> Eliminamos jogos onde a soma das dezenas foge do padrão histórico.</li>
+                <li><b>Filtro de Paridade:</b> Equilibramos a quantidade de números Pares e Ímpares.</li>
+                <li><b>Força Bruta Otimizada:</b> O algoritmo gera milhares de jogos em milissegundos e só entrega para você aquele que passa nos testes!</li>
             </ul>
         </div>
     </div>
@@ -140,6 +122,7 @@
             <p>✉️ egfiuza@gmail.com</p>
         </div>
     </div>
-    <script src="script.js?v=4.0"></script>
+
+    <script src="script.js?v=5.0"></script>
 </body>
-</html> 
+</html>
