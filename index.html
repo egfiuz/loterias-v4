@@ -26,21 +26,60 @@
                 <h2>MEGA-SENA</h2>
                 <p>Sorteia 6 de 60</p>
                 <div id="resultado-mega" class="resultado-box" style="min-height: 80px;">
-                    <h2 id="numeros_mega" style="letter-spacing: 3px; margin: 10px 0;">
-                        Nenhum jogo gerado ainda.
-                    </h2>
+                    <h2 id="numeros_mega" style="letter-spacing: 3px; margin: 10px 0;">Nenhum jogo gerado ainda.</h2>
                     <p id="analise_mega" style="font-size: 12px; color: #aaa; margin: 0;"></p>
                 </div>
-                <button id="btn_mega" onclick="gerarPalpiteMegaSena()" class="btn-gerar">Gerar Jogo Otimizado</button>
+                <button id="btn_mega" onclick="gerarJogo('mega')" class="btn-gerar">Gerar Jogo Otimizado</button>
             </div>
 
             <div class="card loto">
                 <h2>LOTOFÁCIL</h2>
                 <p>Sorteia 15 de 25</p>
-                <div id="resultado-loto" class="resultado-box">
-                    Nenhum jogo gerado ainda. Clique no botão abaixo.
+                <div id="resultado-lotofacil" class="resultado-box" style="min-height: 80px;">
+                    <h2 id="numeros_lotofacil" style="letter-spacing: 3px; margin: 10px 0;">Nenhum jogo gerado ainda.</h2>
+                    <p id="analise_lotofacil" style="font-size: 12px; color: #aaa; margin: 0;"></p>
                 </div>
-                <button onclick="gerarJogo('loto')" class="btn-gerar">Gerar Jogo Otimizado</button>
+                <button id="btn_lotofacil" onclick="gerarJogo('lotofacil')" class="btn-gerar">Gerar Jogo Otimizado</button>
+            </div>
+
+            <div class="card quina">
+                <h2 style="color: #9b59b6;">QUINA</h2>
+                <p>Sorteia 5 de 80</p>
+                <div id="resultado-quina" class="resultado-box" style="min-height: 80px;">
+                    <h2 id="numeros_quina" style="letter-spacing: 3px; margin: 10px 0;">Nenhum jogo gerado ainda.</h2>
+                    <p id="analise_quina" style="font-size: 12px; color: #aaa; margin: 0;"></p>
+                </div>
+                <button id="btn_quina" onclick="gerarJogo('quina')" class="btn-gerar" style="background-color: #9b59b6;">Gerar Jogo Otimizado</button>
+            </div>
+
+            <div class="card lotomania">
+                <h2 style="color: #f39c12;">LOTOMANIA</h2>
+                <p>Sorteia 50 de 100</p>
+                <div id="resultado-lotomania" class="resultado-box" style="min-height: 80px;">
+                    <h2 id="numeros_lotomania" style="letter-spacing: 2px; font-size: 16px; margin: 10px 0;">Nenhum jogo gerado ainda.</h2>
+                    <p id="analise_lotomania" style="font-size: 12px; color: #aaa; margin: 0;"></p>
+                </div>
+                <button id="btn_lotomania" onclick="gerarJogo('lotomania')" class="btn-gerar" style="background-color: #f39c12;">Gerar Jogo Otimizado</button>
+            </div>
+
+            <div class="card timemania">
+                <h2 style="color: #f1c40f;">TIMEMANIA</h2>
+                <p>Sorteia 10 de 80</p>
+                <div id="resultado-timemania" class="resultado-box" style="min-height: 80px;">
+                    <h2 id="numeros_timemania" style="letter-spacing: 3px; margin: 10px 0;">Nenhum jogo gerado ainda.</h2>
+                    <p id="analise_timemania" style="font-size: 12px; color: #aaa; margin: 0;"></p>
+                </div>
+                <button id="btn_timemania" onclick="gerarJogo('timemania')" class="btn-gerar" style="background-color: #f1c40f; color: black;">Gerar Jogo Otimizado</button>
+            </div>
+
+            <div class="card duplasena">
+                <h2 style="color: #e74c3c;">DUPLA SENA</h2>
+                <p>Sorteia 6 de 50</p>
+                <div id="resultado-duplasena" class="resultado-box" style="min-height: 80px;">
+                    <h2 id="numeros_duplasena" style="letter-spacing: 3px; margin: 10px 0;">Nenhum jogo gerado ainda.</h2>
+                    <p id="analise_duplasena" style="font-size: 12px; color: #aaa; margin: 0;"></p>
+                </div>
+                <button id="btn_duplasena" onclick="gerarJogo('duplasena')" class="btn-gerar" style="background-color: #e74c3c;">Gerar Jogo Otimizado</button>
             </div>
         </div>
     </main>
@@ -81,6 +120,6 @@
         </div>
     </div>
 
-    <script src="script.js?v=2.0"></script>
+    <script src="script.js?v=3.0"></script>
 </body>
-</html>
+</html> 
