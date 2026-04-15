@@ -79,23 +79,6 @@ async function gerarJogo(tipo) {
         alert("Acesso Negado: Faça login primeiro!"); return;
     }
 
-    // --- INÍCIO DA TRAVA FREEMIUM (FRONTEND) ---
-    // Resgata o histórico de uso desse usuário específico
-    let jogosGerados = parseInt(localStorage.getItem(`uso_${emailLogado}`)) || 0;
-
-    // Se já usou as 3 chances, bloqueia e rola a tela para o PIX
-    if (jogosGerados >= 3) {
-        alert("Você atingiu seu limite gratuito de 3 jogos. Torne-se VIP por R$ 19,90 para acesso ilimitado!");
-        
-        // Comando para rolar a tela suavemente até a área VIP
-        const areaVip = document.getElementById('area-vip');
-        if (areaVip) {
-            areaVip.scrollIntoView({ behavior: 'smooth' });
-        }
-        return; // Interrompe a execução aqui, não vai para a API
-    }
-    // --- FIM DA LÓGICA DE BLOQUEIO ---
-
     try {
         const botao = document.getElementById(`btn_${tipo}`); 
         botao.innerText = "Processando...";
@@ -107,35 +90,40 @@ async function gerarJogo(tipo) {
         });
 
         const data = await response.json();
+
+        // Se o Backend Python retornar a trava de limite (Erro 403)
+        if (response.status === 403) {
+            alert("Você atingiu seu limite gratuito de 3 jogos. Torne-se VIP por R$ 19,90 para acesso ilimitado!");
+            const areaVip = document.getElementById('area-vip');
+            if (areaVip) {
+                areaVip.scrollIntoView({ behavior: 'smooth' });
+            }
+            botao.innerText = "Gerar Jogo Otimizado";
+            return;
+        }
+
+        // Se o Backend autorizar a geração
         if (response.ok) {
             const dezenasFormatadas = data.dezenas.map(d => d.toString().padStart(2, '0')).join(' - ');
             document.getElementById(`numeros_${tipo}`).innerText = dezenasFormatadas;
+            
+            // Atualiza com o visual tecnológico dos selos
             document.getElementById(`analise_${tipo}`).innerHTML = `
-    <div style="background: #222; padding: 8px; border-radius: 5px; border: 1px solid #444; display: inline-block; text-align: center; margin-top: 5px;">
-        <span style="color: #3498db; font-weight: bold;">Gauss: ${data.analise.soma_gauss}</span> | 
-        <span style="color: #e74c3c; font-weight: bold;">${data.analise.pares}P / ${data.analise.impares}I</span><br>
-        <span style="color: #2ecc71; font-size: 11px;">✔️ Fibo. Aplicado | ✔️ Lei Benford Validada | 📡 Caixa Sync</span>
-    </div>
-`;
-            
-            // Jogo gerado com sucesso! Adiciona +1 no contador do usuário
-            jogosGerados++;
-            localStorage.setItem(`uso_${emailLogado}`, jogosGerados);
-            
-            // Dica de UX: Avisa quantos jogos restam se ainda não zerou
-            if (jogosGerados === 2) {
-                console.log("Atenção: Resta apenas 1 jogo gratuito!");
-            }
-
+                <div style="background: #222; padding: 8px; border-radius: 5px; border: 1px solid #444; display: inline-block; text-align: center; margin-top: 5px;">
+                    <span style="color: #3498db; font-weight: bold;">Gauss: ${data.analise.soma_gauss}</span> | 
+                    <span style="color: #e74c3c; font-weight: bold;">${data.analise.pares}P / ${data.analise.impares}I</span><br>
+                    <span style="color: #2ecc71; font-size: 11px;">✔️ Fibo. Aplicado | ✔️ Lei Benford Validada | 📡 Caixa Sync</span>
+                </div>
+            `;
         } else {
-            alert("Erro: " + data.detail);
+            alert("Erro: " + (data.detail || "Erro desconhecido"));
         }
         botao.innerText = "Gerar Jogo Otimizado";
     } catch (error) {
         alert("Falha de comunicação.");
+        document.getElementById(`btn_${tipo}`).innerText = "Gerar Jogo Otimizado";
     }
 }
-
 // --- LÓGICA DO SISTEMA DE COMENTÁRIOS RAIZ ---
 
 async function carregarComentarios() {
