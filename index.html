@@ -27,6 +27,17 @@
         <div class="cards-grid">
             <div class="card mega">
                 <h2>MEGA-SENA</h2><p>Sorteia 6 de 60</p>
+                <div style="margin: 10px 0;">
+                    <label style="font-size: 12px; color: #888;">Dezenas:</label>
+                    <select id="qtd_mega" style="background: #2a2a2a; color: white; border: 1px solid #444; border-radius: 4px; padding: 2px 5px;">
+                        <option value="6">6 (Padrão)</option>
+                        <option value="7">7 (Elite)</option>
+                        <option value="8">8 (Elite)</option>
+                        <option value="9">9 (Elite)</option>
+                        <option value="10">10 (Elite)</option>
+                        <option value="15">15 (Elite Máx)</option>
+                    </select>
+                </div>
                 <div id="resultado-mega" class="resultado-box" style="min-height: 80px;">
                     <h2 id="numeros_mega" style="letter-spacing: 3px; margin: 10px 0;">Nenhum jogo gerado ainda.</h2>
                     <p id="analise_mega" style="font-size: 12px; color: #aaa; margin: 0;"></p>
@@ -36,6 +47,17 @@
 
             <div class="card loto">
                 <h2>LOTOFÁCIL</h2><p>Sorteia 15 de 25</p>
+                <div style="margin: 10px 0;">
+                    <label style="font-size: 12px; color: #888;">Dezenas:</label>
+                    <select id="qtd_lotofacil" style="background: #2a2a2a; color: white; border: 1px solid #444; border-radius: 4px; padding: 2px 5px;">
+                        <option value="15">15 (Padrão)</option>
+                        <option value="16">16 (Elite)</option>
+                        <option value="17">17 (Elite)</option>
+                        <option value="18">18 (Elite)</option>
+                        <option value="19">19 (Elite)</option>
+                        <option value="20">20 (Elite Máx)</option>
+                    </select>
+                </div>
                 <div id="resultado-lotofacil" class="resultado-box" style="min-height: 80px;">
                     <h2 id="numeros_lotofacil" style="letter-spacing: 3px; margin: 10px 0;">Nenhum jogo gerado ainda.</h2>
                     <p id="analise_lotofacil" style="font-size: 12px; color: #aaa; margin: 0;"></p>
@@ -45,6 +67,16 @@
 
             <div class="card quina">
                 <h2 style="color: #9b59b6;">QUINA</h2><p>Sorteia 5 de 80</p>
+                <div style="margin: 10px 0;">
+                    <label style="font-size: 12px; color: #888;">Dezenas:</label>
+                    <select id="qtd_quina" style="background: #2a2a2a; color: white; border: 1px solid #444; border-radius: 4px; padding: 2px 5px;">
+                        <option value="5">5 (Padrão)</option>
+                        <option value="6">6 (Elite)</option>
+                        <option value="7">7 (Elite)</option>
+                        <option value="10">10 (Elite)</option>
+                        <option value="15">15 (Elite Máx)</option>
+                    </select>
+                </div>
                 <div id="resultado-quina" class="resultado-box" style="min-height: 80px;">
                     <h2 id="numeros_quina" style="letter-spacing: 3px; margin: 10px 0;">Nenhum jogo gerado ainda.</h2>
                     <p id="analise_quina" style="font-size: 12px; color: #aaa; margin: 0;"></p>
@@ -54,6 +86,9 @@
 
             <div class="card lotomania">
                 <h2 style="color: #f39c12;">LOTOMANIA</h2><p>Sorteia 50 de 100</p>
+                <div style="margin: 10px 0;">
+                    <label style="font-size: 12px; color: #888;">Dezenas: <span style="color: #f39c12;">50 (Fixo)</span></label>
+                </div>
                 <div id="resultado-lotomania" class="resultado-box" style="min-height: 80px;">
                     <h2 id="numeros_lotomania" style="letter-spacing: 2px; font-size: 16px; margin: 10px 0;">Nenhum jogo gerado ainda.</h2>
                     <p id="analise_lotomania" style="font-size: 12px; color: #aaa; margin: 0;"></p>
@@ -63,6 +98,9 @@
 
             <div class="card timemania">
                 <h2 style="color: #f1c40f;">TIMEMANIA</h2><p>Sorteia 10 de 80</p>
+                <div style="margin: 10px 0;">
+                    <label style="font-size: 12px; color: #888;">Dezenas: <span style="color: #f1c40f;">10 (Fixo)</span></label>
+                </div>
                 <div id="resultado-timemania" class="resultado-box" style="min-height: 80px;">
                     <h2 id="numeros_timemania" style="letter-spacing: 3px; margin: 10px 0;">Nenhum jogo gerado ainda.</h2>
                     <p id="analise_timemania" style="font-size: 12px; color: #aaa; margin: 0;"></p>
@@ -72,6 +110,16 @@
 
             <div class="card duplasena">
                 <h2 style="color: #e74c3c;">DUPLA SENA</h2><p>Sorteia 6 de 50</p>
+                <div style="margin: 10px 0;">
+                    <label style="font-size: 12px; color: #888;">Dezenas:</label>
+                    <select id="qtd_duplasena" style="background: #2a2a2a; color: white; border: 1px solid #444; border-radius: 4px; padding: 2px 5px;">
+                        <option value="6">6 (Padrão)</option>
+                        <option value="7">7 (Elite)</option>
+                        <option value="8">8 (Elite)</option>
+                        <option value="10">10 (Elite)</option>
+                        <option value="15">15 (Elite Máx)</option>
+                    </select>
+                </div>
                 <div id="resultado-duplasena" class="resultado-box" style="min-height: 80px;">
                     <h2 id="numeros_duplasena" style="letter-spacing: 3px; margin: 10px 0;">Nenhum jogo gerado ainda.</h2>
                     <p id="analise_duplasena" style="font-size: 12px; color: #aaa; margin: 0;"></p>
@@ -107,11 +155,8 @@
     <div id="modal-ciencia" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center;">
         <div style="background: #1a1a1a; padding: 40px; border-radius: 10px; text-align: left; border: 2px solid #9b59b6; width: 700px; max-width: 90%; position: relative; color: white; max-height: 80vh; overflow-y: auto;">
             <button onclick="fecharCiencia()" style="position: absolute; top: 15px; right: 20px; background: none; border: none; color: white; cursor: pointer; font-size: 18px; font-weight: bold;">X</button>
-            
             <h2 style="color: #9b59b6; margin-top: 0; text-align: center; font-size: 24px;">A Ciência por trás da Probabilidade</h2>
-            
             <p style="font-size: 15px; line-height: 1.6; color: #ccc;">O <b>SuperLoterias API</b> não é um gerador aleatório de "palpites". É um motor de inteligência artificial que aplica heurísticas avançadas, leis matemáticas imutáveis e mineração de dados em tempo real para filtrar as piores combinações. Nosso algoritmo analisa o comportamento estatístico histórico de todas as loterias do Brasil.</p>
-            
             <div style="background: #2a2a2a; padding: 20px; border-radius: 8px; margin-top: 20px;">
                 <ul style="list-style-type: none; padding-left: 0; margin: 0; line-height: 1.8;">
                     <li style="margin-bottom: 10px;">📊 <b>Lei dos Grandes Números:</b> Garantimos que a distribuição das dezenas respeite a tendência de convergência estatística a longo prazo.</li>
@@ -120,7 +165,7 @@
                     <li style="margin-bottom: 10px;">🌀 <b>Sequência de Fibonacci:</b> Monitoramento de dezenas que pertencem à proporção áurea, ajustando o peso probabilístico.</li>
                     <li style="margin-bottom: 10px;">⚖️ <b>Leis da Aritmética e Paridade:</b> Controle algorítmico estrito para equilibrar a proporção de números Pares, Ímpares e números Primos.</li>
                     <li style="margin-bottom: 10px;">📡 <b>Sincronização em Tempo Real:</b> Validação cruzada com bancos de dados dos servidores oficiais da Caixa Econômica Federal.</li>
-                    <li style="margin-bottom: 0;">💻 <b>Força Bruta Otimizada:</b> Milhares de loops gerados em milissegundos. Se o jogo não passar em <i>todos</i> os filtros acima, a IA o descarta e tenta de novo.</li>
+                    <li style="margin-bottom: 0;">💻 <b>Força Bruta Otimizada:</b> Milhares de loops gerados em milissegundos. Se o jogo não passar em <i>todos</i> os filtros acima, a IA o descarta.</li>
                 </ul>
             </div>
             <p style="text-align: center; margin-top: 25px; color: #f1c40f; font-weight: bold;">Aqui, a matemática trabalha pela sua sorte.</p>
@@ -148,12 +193,23 @@
         </p>
 
         <p style="color: #f1c40f; font-weight: bold; font-size: 22px; margin-bottom: 15px;">
-            👑 Desbloqueie o Acesso VIP Vitalício
+            👑 Garanta seu Acesso Vitalício
         </p>
         
         <p style="margin-bottom: 25px; font-size: 16px; color: #fff; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.6; background: #222; padding: 15px; border-radius: 8px; border-left: 4px solid #f1c40f;">
-            Você gasta R$ 30,00 toda semana jogando números aleatórios e perdendo. Com apenas <b>R$ 19,90</b> (pagamento único), você tem acesso vitalício à nossa Inteligência Artificial para otimizar seus jogos para sempre!
+            Pague uma única vez e tenha a Inteligência Matemática a seu favor para sempre. Escolha o plano que melhor se adapta à sua estratégia!
         </p>
+
+        <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 25px; flex-wrap: wrap;">
+            <div style="background: #222; padding: 15px; border-radius: 8px; border: 1px solid #3498db; width: 250px;">
+                <span style="color: #3498db; font-weight: bold; font-size: 18px;">Plano PRO: R$ 19,90</span><br>
+                <small style="color: #ccc; display: block; margin-top: 5px;">Acesso Ilimitado a Jogos Simples em todas as Loterias.</small>
+            </div>
+            <div style="background: #222; padding: 15px; border-radius: 8px; border: 1px solid #9b59b6; width: 250px;">
+                <span style="color: #9b59b6; font-weight: bold; font-size: 18px;">Plano ELITE: R$ 29,90</span><br>
+                <small style="color: #ccc; display: block; margin-top: 5px;">Acesso Ilimitado + Desdobramentos Otimizados (Mais números).</small>
+            </div>
+        </div>
         
         <div style="background: #2a2a2a; display: inline-block; padding: 25px; border-radius: 12px; border: 2px dashed #2ecc71; box-shadow: 0 4px 15px rgba(46, 204, 113, 0.1); margin-bottom: 25px;">
             <img src="qrcode.png" alt="QR Code PIX VIP" style="width: 150px; height: 150px; border-radius: 10px; margin-bottom: 15px;">
@@ -163,7 +219,7 @@
         </div>
 
         <p style="font-weight: bold; color: #3498db; font-size: 16px; margin-bottom: 35px;">
-            Após o pagamento, envie o comprovante no WhatsApp ou E-mail para a liberação imediata da sua conta ilimitada! 🚀
+            Após o pagamento, envie o comprovante no WhatsApp ou E-mail avisando qual o seu plano (PRO ou ELITE) para a liberação imediata! 🚀
         </p>
 
         <p style="background-color: #0d47a1; color: white; display: inline-block; padding: 10px 20px; border-radius: 5px; font-weight: bold; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(13, 71, 161, 0.3);">
@@ -189,6 +245,10 @@
         </div>
     </section>
 
-    <script src="script.js?v=7.0"></script>
+    <footer style="margin-top: 50px; padding: 30px; border-top: 1px solid #333; color: #555; font-size: 11px; text-align: justify; max-width: 900px; margin-left: auto; margin-right: auto; line-height: 1.5;">
+        <p><b>NOTA DE TRANSPARÊNCIA E LIMITAÇÃO DE RESPONSABILIDADE:</b> A SuperLoterias API utiliza modelos de probabilidade estatística e análise de dados históricos para otimizar combinações numéricas. Embora apliquemos engenharia de software avançada (Curva de Gauss, Lei de Benford, Teoremas Aritméticos), o usuário declara estar ciente de que as loterias são eventos estritamente aleatórios por natureza. <b>Não existe garantia de ganho financeiro ou premiação.</b> O sistema oferece melhores oportunidades e diagnósticos matemáticos, mas o fator sorte permanece soberano em cada sorteio. A SuperLoterias API incentiva o jogo responsável e o uso desta ferramenta possui caráter puramente analítico.</p>
+    </footer>
+
+    <script src="script.js?v=8.0"></script>
 </body>
 </html>

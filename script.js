@@ -74,58 +74,72 @@ async function fazerLogin(event) {
 async function gerarJogo(tipo) {
     const emailLogado = localStorage.getItem('userEmail');
     const senhaLogada = localStorage.getItem('userSenha');
+    
+    // Pega a quantidade selecionada no dropdown. Se não achar, manda 0 (o backend usa o padrão)
+    const selectQtd = document.getElementById(`qtd_${tipo}`);
+    const qtdEscolhida = selectQtd ? parseInt(selectQtd.value) : 0; 
 
     if (!emailLogado || !senhaLogada) {
-        alert("Acesso Negado: Faça login primeiro!"); return;
+        alert("Acesso Negado: Faça login primeiro para usar a IA!"); 
+        return;
     }
 
     try {
         const botao = document.getElementById(`btn_${tipo}`); 
-        botao.innerText = "Processando...";
+        botao.innerText = "Processando Matemática...";
 
         const response = await fetch(`${API_URL}/gerar-palpite`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: emailLogado, senha: senhaLogada, tipo: tipo })
+            body: JSON.stringify({ 
+                email: emailLogado, 
+                senha: senhaLogada, 
+                tipo: tipo,
+                qtd_dezenas: qtdEscolhida
+            })
         });
 
         const data = await response.json();
 
-        // Se o Backend Python retornar a trava de limite (Erro 403)
+        // Tratamento inteligente dos bloqueios do Backend (Cadeado do Cloud)
         if (response.status === 403) {
-            alert("Você atingiu seu limite gratuito de 3 jogos. Torne-se VIP por R$ 19,90 para acesso ilimitado!");
-            const areaVip = document.getElementById('area-vip');
-            if (areaVip) {
-                areaVip.scrollIntoView({ behavior: 'smooth' });
+            if (data.detail && data.detail.includes("Elite")) {
+                alert("🔒 Essa funcionalidade de desdobramento exige o Plano ELITE (R$ 29,90). Faça o upgrade e jogue como os profissionais!");
+            } else {
+                alert("⏱️ Limite de 3 testes gratuitos atingido. Garanta o Acesso Vitalício PRO para geração ilimitada!");
             }
+            document.getElementById('area-vip').scrollIntoView({ behavior: 'smooth' });
             botao.innerText = "Gerar Jogo Otimizado";
             return;
         }
 
-        // Se o Backend autorizar a geração
         if (response.ok) {
             const dezenasFormatadas = data.dezenas.map(d => d.toString().padStart(2, '0')).join(' - ');
             document.getElementById(`numeros_${tipo}`).innerText = dezenasFormatadas;
             
-            // Atualiza com o visual tecnológico dos selos
+            // Renderização do diagnóstico super técnico
             document.getElementById(`analise_${tipo}`).innerHTML = `
-                <div style="background: #222; padding: 8px; border-radius: 5px; border: 1px solid #444; display: inline-block; text-align: center; margin-top: 5px;">
-                    <span style="color: #3498db; font-weight: bold;">Gauss: ${data.analise.soma_gauss}</span> | 
+                <div style="background: #222; padding: 10px; border-radius: 5px; border: 1px solid #444; display: inline-block; text-align: center; margin-top: 8px;">
+                    <span style="color: #3498db; font-weight: bold;">Gauss (Soma): ${data.analise.soma_gauss}</span> | 
                     <span style="color: #e74c3c; font-weight: bold;">${data.analise.pares}P / ${data.analise.impares}I</span><br>
-                    <span style="color: #2ecc71; font-size: 11px;">✔️ Fibo. Aplicado | ✔️ Lei Benford Validada | 📡 Caixa Sync</span>
+                    <div style="margin-top: 5px;">
+                        <span style="color: #2ecc71; font-size: 11px; margin-right: 5px;">✔️ Fibo. Aplicado</span>
+                        <span style="color: #2ecc71; font-size: 11px; margin-right: 5px;">✔️ Lei Benford Validada</span>
+                        <span style="color: #2ecc71; font-size: 11px;">📡 Caixa Sync</span>
+                    </div>
                 </div>
             `;
         } else {
-            alert("Erro: " + (data.detail || "Erro desconhecido"));
+            alert("Erro do Servidor: " + (data.detail || "Erro desconhecido"));
         }
         botao.innerText = "Gerar Jogo Otimizado";
     } catch (error) {
-        alert("Falha de comunicação.");
+        alert("Falha de comunicação com a Nuvem Google.");
         document.getElementById(`btn_${tipo}`).innerText = "Gerar Jogo Otimizado";
     }
 }
-// --- LÓGICA DO SISTEMA DE COMENTÁRIOS RAIZ ---
 
+// --- SISTEMA DE COMENTÁRIOS ---
 async function carregarComentarios() {
     try {
         const response = await fetch(`${API_URL}/comentarios`);
@@ -134,7 +148,7 @@ async function carregarComentarios() {
         lista.innerHTML = ''; 
 
         if (comentarios.length === 0) {
-            lista.innerHTML = '<p style="text-align: center; color: #888;">Seja o primeiro a comentar e testar a nossa API!</p>';
+            lista.innerHTML = '<p style="text-align: center; color: #888;">Nenhum depoimento ainda. Seja o primeiro a relatar seus resultados!</p>';
             return;
         }
 
@@ -156,7 +170,7 @@ async function enviarComentario() {
     const texto = document.getElementById('texto_comentario').value;
 
     if (!nome || !texto) {
-        alert("Preencha o seu nome e o comentário!");
+        alert("Preencha seu nome e o seu relato de uso!");
         return;
     }
 
@@ -172,10 +186,10 @@ async function enviarComentario() {
             document.getElementById('texto_comentario').value = '';
             carregarComentarios(); 
         } else {
-            alert("Erro ao enviar o comentário.");
+            alert("Falha ao registrar o comentário.");
         }
     } catch (error) {
-        alert("Falha de conexão com o servidor.");
+        alert("Falha de conexão com o servidor de comentários.");
     }
 }
 
