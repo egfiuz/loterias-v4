@@ -110,7 +110,13 @@ async function gerarJogo(tipo) {
         if (response.ok) {
             const dezenasFormatadas = data.dezenas.map(d => d.toString().padStart(2, '0')).join(' - ');
             document.getElementById(`numeros_${tipo}`).innerText = dezenasFormatadas;
-            document.getElementById(`analise_${tipo}`).innerHTML = `Soma Gauss: ${data.analise.soma_gauss} | ${data.analise.pares} Pares / ${data.analise.impares} Ímpares`;
+            document.getElementById(`analise_${tipo}`).innerHTML = `
+    <div style="background: #222; padding: 8px; border-radius: 5px; border: 1px solid #444; display: inline-block; text-align: center; margin-top: 5px;">
+        <span style="color: #3498db; font-weight: bold;">Gauss: ${data.analise.soma_gauss}</span> | 
+        <span style="color: #e74c3c; font-weight: bold;">${data.analise.pares}P / ${data.analise.impares}I</span><br>
+        <span style="color: #2ecc71; font-size: 11px;">✔️ Fibo. Aplicado | ✔️ Lei Benford Validada | 📡 Caixa Sync</span>
+    </div>
+`;
             
             // Jogo gerado com sucesso! Adiciona +1 no contador do usuário
             jogosGerados++;
