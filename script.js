@@ -79,6 +79,23 @@ async function gerarJogo(tipo) {
         alert("Acesso Negado: Faça login primeiro!"); return;
     }
 
+    // --- INÍCIO DA TRAVA FREEMIUM (FRONTEND) ---
+    // Resgata o histórico de uso desse usuário específico
+    let jogosGerados = parseInt(localStorage.getItem(`uso_${emailLogado}`)) || 0;
+
+    // Se já usou as 3 chances, bloqueia e rola a tela para o PIX
+    if (jogosGerados >= 3) {
+        alert("Você atingiu seu limite gratuito de 3 jogos. Torne-se VIP por R$ 19,90 para acesso ilimitado!");
+        
+        // Comando para rolar a tela suavemente até a área VIP
+        const areaVip = document.getElementById('area-vip');
+        if (areaVip) {
+            areaVip.scrollIntoView({ behavior: 'smooth' });
+        }
+        return; // Interrompe a execução aqui, não vai para a API
+    }
+    // --- FIM DA LÓGICA DE BLOQUEIO ---
+
     try {
         const botao = document.getElementById(`btn_${tipo}`); 
         botao.innerText = "Processando...";
@@ -94,6 +111,16 @@ async function gerarJogo(tipo) {
             const dezenasFormatadas = data.dezenas.map(d => d.toString().padStart(2, '0')).join(' - ');
             document.getElementById(`numeros_${tipo}`).innerText = dezenasFormatadas;
             document.getElementById(`analise_${tipo}`).innerHTML = `Soma Gauss: ${data.analise.soma_gauss} | ${data.analise.pares} Pares / ${data.analise.impares} Ímpares`;
+            
+            // Jogo gerado com sucesso! Adiciona +1 no contador do usuário
+            jogosGerados++;
+            localStorage.setItem(`uso_${emailLogado}`, jogosGerados);
+            
+            // Dica de UX: Avisa quantos jogos restam se ainda não zerou
+            if (jogosGerados === 2) {
+                console.log("Atenção: Resta apenas 1 jogo gratuito!");
+            }
+
         } else {
             alert("Erro: " + data.detail);
         }
