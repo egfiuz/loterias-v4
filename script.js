@@ -1,5 +1,6 @@
 const API_URL = "https://loterias-v4-957072274278.southamerica-east1.run.app";
 
+// --- CONTROLE DE MODAIS E INTERFACE ---
 function abrirModal() { document.getElementById('modal-login').style.display = 'flex'; }
 function fecharModal() { document.getElementById('modal-login').style.display = 'none'; }
 function trocarParaCadastro() {
@@ -15,10 +16,10 @@ function abrirCiencia() { document.getElementById('modal-ciencia').style.display
 function fecharCiencia() { document.getElementById('modal-ciencia').style.display = 'none'; }
 function abrirContato() { document.getElementById('modal-contato').style.display = 'flex'; }
 function fecharContato() { document.getElementById('modal-contato').style.display = 'none'; }
-
 function abrirInstrucoes() { document.getElementById('modal-instrucoes').style.display = 'flex'; }
 function fecharInstrucoes() { document.getElementById('modal-instrucoes').style.display = 'none'; }
 
+// --- LÓGICA DE AUTENTICAÇÃO ---
 async function fazerCadastro(event) {
     event.preventDefault();
     const nome = document.getElementById('nome_cad').value;
@@ -74,6 +75,7 @@ async function fazerLogin(event) {
     }
 }
 
+// --- LÓGICA DE GERAÇÃO DA IA ---
 async function gerarJogo(tipo) {
     const emailLogado = localStorage.getItem('userEmail');
     const senhaLogada = localStorage.getItem('userSenha');
@@ -104,7 +106,7 @@ async function gerarJogo(tipo) {
 
         const data = await response.json();
 
-        // Tratamento inteligente dos bloqueios do Backend (Cadeado do Cloud)
+        // Tratamento inteligente dos bloqueios do Backend
         if (response.status === 403) {
             if (data.detail && data.detail.includes("Elite")) {
                 alert("🔒 Essa funcionalidade de desdobramento exige o Plano ELITE (R$ 29,90). Faça o upgrade e jogue como os profissionais!");
@@ -120,7 +122,7 @@ async function gerarJogo(tipo) {
             const dezenasFormatadas = data.dezenas.map(d => d.toString().padStart(2, '0')).join(' - ');
             document.getElementById(`numeros_${tipo}`).innerText = dezenasFormatadas;
             
-            // Renderização do diagnóstico super técnico
+            // Renderização do diagnóstico técnico
             document.getElementById(`analise_${tipo}`).innerHTML = `
                 <div style="background: #222; padding: 10px; border-radius: 5px; border: 1px solid #444; display: inline-block; text-align: center; margin-top: 8px;">
                     <span style="color: #3498db; font-weight: bold;">Gauss (Soma): ${data.analise.soma_gauss}</span> | 
@@ -142,7 +144,7 @@ async function gerarJogo(tipo) {
     }
 }
 
-// --- SISTEMA DE COMENTÁRIOS ---
+// --- SISTEMA DE COMENTÁRIOS E DEPOIMENTOS ---
 async function carregarComentarios() {
     try {
         const response = await fetch(`${API_URL}/comentarios`);
