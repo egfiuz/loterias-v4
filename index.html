@@ -262,6 +262,29 @@
         <p style="background-color: #0d47a1; color: white; display: inline-block; padding: 10px 20px; border-radius: 5px; font-weight: bold; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(13, 71, 161, 0.3);">
             Obrigada por apoiar a tecnologia e a ciência por trás da sorte! 🚀
         </p>
+        <p style="font-size: 14px; color: #777; margin-top: 10px;">
+            Desenvolvido com ☕ por <b style="color: #aaa;">Eliene Fiuza</b>
+        </p>
+    </div>
+
+    <section style="max-width: 800px; margin: 40px auto; padding: 25px; background: #1a1a1a; border-radius: 10px; border: 1px solid #333;">
+        <h2 style="color: #3498db; text-align: center; margin-top: 0;">💬 O que dizem sobre a API</h2>
+        
+        <div style="margin-bottom: 25px; display: flex; flex-direction: column; gap: 10px;">
+            <input type="text" id="nome_comentario" placeholder="Seu Nome" style="padding: 12px; border-radius: 5px; border: 1px solid #333; background: #2a2a2a; color: white;" required>
+            <textarea id="texto_comentario" placeholder="Deixe seu depoimento ou sugestão..." rows="3" style="padding: 12px; border-radius: 5px; border: 1px solid #333; background: #2a2a2a; color: white; resize: vertical;" required></textarea>
+            <button onclick="enviarComentario()" style="padding: 12px; background: #3498db; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; transition: 0.3s;">Publicar Comentário</button>
+        </div>
+
+        <div id="lista_comentarios" style="display: flex; flex-direction: column; gap: 15px;">
+            <p style="text-align: center; color: #888;">Carregando depoimentos...</p>
+        </div>
+    </section>
+
+    <footer style="margin-top: 50px; padding: 30px; border-top: 1px solid #333; color: #555; font-size: 11px; text-align: justify; max-width: 900px; margin-left: auto; margin-right: auto; line-height: 1.5;">
+        <p><b>NOTA DE TRANSPARÊNCIA E LIMITAÇÃO DE RESPONSABILIDADE:</b> A SuperLoterias API utiliza modelos de probabilidade estatística e análise de dados históricos para otimizar combinações numéricas. Embora apliquemos engenharia de software avançada (Curva de Gauss, Lei de Benford, Teoremas Aritméticos), o usuário declara estar ciente de que as loterias são eventos estritamente aleatórios por natureza. <b>Não existe garantia de ganho financeiro ou premiação.</b> O sistema oferece melhores oportunidades e diagnósticos matemáticos, mas o fator sorte permanece soberano em cada sorteio. A SuperLoterias API incentiva o jogo responsável e o uso desta ferramenta possui caráter puramente analítico.</p>
+    </footer>
+
 <script src="script.js?v=9.1"></script>
 </body>
 </html>
