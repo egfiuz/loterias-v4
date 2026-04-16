@@ -16,6 +16,9 @@ function fecharCiencia() { document.getElementById('modal-ciencia').style.displa
 function abrirContato() { document.getElementById('modal-contato').style.display = 'flex'; }
 function fecharContato() { document.getElementById('modal-contato').style.display = 'none'; }
 
+function abrirInstrucoes() { document.getElementById('modal-instrucoes').style.display = 'flex'; }
+function fecharInstrucoes() { document.getElementById('modal-instrucoes').style.display = 'none'; }
+
 async function fazerCadastro(event) {
     event.preventDefault();
     const nome = document.getElementById('nome_cad').value;

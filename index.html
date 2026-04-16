@@ -8,11 +8,12 @@
 </head>
 <body>
     <header>
-        <div class="logo">🍀 SuperLoterias API</div>
-        <nav>
-            <a href="#" onclick="abrirCiencia()">A Ciência</a>
-            <a href="#" onclick="abrirContato()">Contato</a>
-            <button class="btn-vip" onclick="abrirModal()">Entrar VIP</button>
+    <div class="logo">🍀 SuperLoterias API</div>
+        <nav style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap; justify-content: center;">
+            <a href="#" onclick="abrirInstrucoes()" style="padding: 8px 15px; background: #2c3e50; border: 1px solid #34495e; border-radius: 5px; color: white; text-decoration: none; font-weight: bold; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">📖 Como Usar</a>
+            <a href="#" onclick="abrirCiencia()" style="padding: 8px 15px; background: #2c3e50; border: 1px solid #34495e; border-radius: 5px; color: white; text-decoration: none; font-weight: bold; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">🔬 A Ciência</a>
+            <a href="#" onclick="abrirContato()" style="padding: 8px 15px; background: #2c3e50; border: 1px solid #34495e; border-radius: 5px; color: white; text-decoration: none; font-weight: bold; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">✉️ Contato</a>
+            <button class="btn-vip" onclick="abrirModal()" style="margin-left: 10px;">Entrar VIP</button>
         </nav>
     </header>
 
@@ -43,6 +44,25 @@
                     <p id="analise_mega" style="font-size: 12px; color: #aaa; margin: 0;"></p>
                 </div>
                 <button id="btn_mega" onclick="gerarJogo('mega')" class="btn-gerar">Gerar Jogo Otimizado</button>
+            </div>
+            
+            <div class="card diadesorte">
+                <h2 style="color: #e67e22;">DIA DE SORTE</h2><p>Sorteia 7 de 31</p>
+                <div style="margin: 10px 0;">
+                    <label style="font-size: 12px; color: #888;">Dezenas:</label>
+                    <select id="qtd_diadesorte" style="background: #2a2a2a; color: white; border: 1px solid #444; border-radius: 4px; padding: 2px 5px;">
+                        <option value="7">7 (Padrão)</option>
+                        <option value="8">8 (Elite)</option>
+                        <option value="9">9 (Elite)</option>
+                        <option value="10">10 (Elite)</option>
+                        <option value="15">15 (Elite Máx)</option>
+                    </select>
+                </div>
+                <div id="resultado-diadesorte" class="resultado-box" style="min-height: 80px;">
+                    <h2 id="numeros_diadesorte" style="letter-spacing: 3px; margin: 10px 0;">Nenhum jogo gerado ainda.</h2>
+                    <p id="analise_diadesorte" style="font-size: 12px; color: #aaa; margin: 0;"></p>
+                </div>
+                <button id="btn_diadesorte" onclick="gerarJogo('diadesorte')" class="btn-gerar" style="background-color: #e67e22;">Gerar Jogo Otimizado</button>
             </div>
 
             <div class="card loto">
@@ -129,6 +149,31 @@
         </div>
     </main>
 
+    <div id="modal-instrucoes" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; justify-content: center; align-items: center;">
+        <div style="background: #1a1a1a; padding: 40px; border-radius: 10px; text-align: left; border: 2px solid #e67e22; width: 800px; max-width: 95%; position: relative; color: white; max-height: 85vh; overflow-y: auto;">
+            <button onclick="fecharInstrucoes()" style="position: absolute; top: 15px; right: 20px; background: none; border: none; color: white; cursor: pointer; font-size: 18px; font-weight: bold;">X</button>
+            
+            <h2 style="color: #e67e22; margin-top: 0; text-align: center; font-size: 26px;">🏎️ O Segredo da Teimosinha</h2>
+            
+            <p style="font-size: 16px; line-height: 1.6; color: #ccc;">Gerar um jogo com a <b>SuperLoterias API</b> e usá-lo apenas uma vez é como comprar uma Ferrari e abastecer com gasolina adulterada! Nossos algoritmos encontram a combinação com a maior tendência estatística. Para que a matemática trabalhe a seu favor, <b>você precisa dar tempo a ela.</b></p>
+            
+            <div style="background: #222; padding: 15px; border-radius: 8px; border-left: 4px solid #3498db; margin-bottom: 25px;">
+                <h3 style="color: #3498db; margin-top: 0;">Regra de Ouro:</h3>
+                <p style="margin-bottom: 0;">Ao gerar seus números otimizados, vá à lotérica (ou no app) e marque a opção <b>Teimosinha para 4 ou 8 concursos consecutivos</b>. Mantenha o mesmo jogo forte em vez de trocar por jogos fracos toda semana.</p>
+            </div>
+
+            <h3 style="color: #2ecc71; text-align: center;">🏆 Caso Real de Sucesso</h3>
+            <div style="background: #2a2a2a; padding: 20px; border-radius: 8px; display: flex; gap: 20px; flex-wrap: wrap; align-items: center; justify-content: center;">
+                <div style="flex: 1; min-width: 250px;">
+                    <p style="font-size: 14px; color: #ddd; font-style: italic;">"Usando as técnicas de Força Bruta e os filtros da API, nossa assinante VIP Flavia aplicou a estratégia no Dia de Sorte. Resultado? Uma premiação total de <b>R$ 4.469,58</b> em um único bilhete! Contra fatos (e matemática) não há argumentos."</p>
+                </div>
+                <div style="flex: 1; text-align: center; min-width: 250px;">
+                    <a href="comprovantePremio.pdf" target="_blank" style="display: inline-block; padding: 10px 20px; background: #2ecc71; color: black; font-weight: bold; text-decoration: none; border-radius: 5px;">📄 Ver Comprovante Oficial</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="modal-login" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center;">
         <div style="background: #1a1a1a; padding: 30px; border-radius: 10px; text-align: center; border: 2px solid #2ecc71; width: 300px; position: relative;">
             <button onclick="fecharModal()" style="position: absolute; top: 10px; right: 15px; background: none; border: none; color: white; cursor: pointer; font-size: 16px;">X</button>
@@ -183,23 +228,18 @@
     </div>
 
     <div style="text-align: center; padding: 40px 20px; color: #aaa; font-size: 15px; margin-top: 50px; border-top: 1px solid #333; background-color: #1a1a1a;" id="area-vip">
-        
         <p style="color: #2ecc71; font-weight: bold; font-size: 20px; margin-bottom: 15px;">
             🍀 O sistema ajudou você a ganhar algum prêmio?
         </p>
-        
         <p style="margin-bottom: 30px; font-size: 15px; color: #bbb; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.6;">
             Este projeto foi construído com muita dedicação (e muitas madrugadas de código!) para trazer a melhor análise estatística e matemática para os seus jogos.
         </p>
-
         <p style="color: #f1c40f; font-weight: bold; font-size: 22px; margin-bottom: 15px;">
             👑 Garanta seu Acesso Vitalício
         </p>
-        
         <p style="margin-bottom: 25px; font-size: 16px; color: #fff; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.6; background: #222; padding: 15px; border-radius: 8px; border-left: 4px solid #f1c40f;">
             Pague uma única vez e tenha a Inteligência Matemática a seu favor para sempre. Escolha o plano que melhor se adapta à sua estratégia!
         </p>
-
         <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 25px; flex-wrap: wrap;">
             <div style="background: #222; padding: 15px; border-radius: 8px; border: 1px solid #3498db; width: 250px;">
                 <span style="color: #3498db; font-weight: bold; font-size: 18px;">Plano PRO: R$ 19,90</span><br>
@@ -210,45 +250,16 @@
                 <small style="color: #ccc; display: block; margin-top: 5px;">Acesso Ilimitado + Desdobramentos Otimizados (Mais números).</small>
             </div>
         </div>
-        
         <div style="background: #2a2a2a; display: inline-block; padding: 25px; border-radius: 12px; border: 2px dashed #2ecc71; box-shadow: 0 4px 15px rgba(46, 204, 113, 0.1); margin-bottom: 25px;">
             <img src="qrcode.png" alt="QR Code PIX VIP" style="width: 150px; height: 150px; border-radius: 10px; margin-bottom: 15px;">
             <br>
             <span style="color: #2ecc71; font-size: 15px;"><b>PIX Celular:</b> <span style="color: #fff;">(12) 98819-9765</span></span><br>
             <span style="color: #2ecc71; font-size: 14px;"><b>Chave Alternativa:</b> <span style="color: #fff;">egfiuza@gmail.com</span></span>
         </div>
-
         <p style="font-weight: bold; color: #3498db; font-size: 16px; margin-bottom: 35px;">
             Após o pagamento, envie o comprovante no WhatsApp ou E-mail avisando qual o seu plano (PRO ou ELITE) para a liberação imediata! 🚀
         </p>
-
         <p style="background-color: #0d47a1; color: white; display: inline-block; padding: 10px 20px; border-radius: 5px; font-weight: bold; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(13, 71, 161, 0.3);">
             Obrigada por apoiar a tecnologia e a ciência por trás da sorte! 🚀
         </p>
-
-        <p style="font-size: 14px; color: #777; margin-top: 10px;">
-            Desenvolvido com ☕ por <b style="color: #aaa;">Eliene Fiuza</b>
-        </p>
-    </div>
-
-    <section style="max-width: 800px; margin: 40px auto; padding: 25px; background: #1a1a1a; border-radius: 10px; border: 1px solid #333;">
-        <h2 style="color: #3498db; text-align: center; margin-top: 0;">💬 O que dizem sobre a API</h2>
-        
-        <div style="margin-bottom: 25px; display: flex; flex-direction: column; gap: 10px;">
-            <input type="text" id="nome_comentario" placeholder="Seu Nome" style="padding: 12px; border-radius: 5px; border: 1px solid #333; background: #2a2a2a; color: white;" required>
-            <textarea id="texto_comentario" placeholder="Deixe seu depoimento ou sugestão..." rows="3" style="padding: 12px; border-radius: 5px; border: 1px solid #333; background: #2a2a2a; color: white; resize: vertical;" required></textarea>
-            <button onclick="enviarComentario()" style="padding: 12px; background: #3498db; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; transition: 0.3s;">Publicar Comentário</button>
-        </div>
-
-        <div id="lista_comentarios" style="display: flex; flex-direction: column; gap: 15px;">
-            <p style="text-align: center; color: #888;">Carregando depoimentos...</p>
-        </div>
-    </section>
-
-    <footer style="margin-top: 50px; padding: 30px; border-top: 1px solid #333; color: #555; font-size: 11px; text-align: justify; max-width: 900px; margin-left: auto; margin-right: auto; line-height: 1.5;">
-        <p><b>NOTA DE TRANSPARÊNCIA E LIMITAÇÃO DE RESPONSABILIDADE:</b> A SuperLoterias API utiliza modelos de probabilidade estatística e análise de dados históricos para otimizar combinações numéricas. Embora apliquemos engenharia de software avançada (Curva de Gauss, Lei de Benford, Teoremas Aritméticos), o usuário declara estar ciente de que as loterias são eventos estritamente aleatórios por natureza. <b>Não existe garantia de ganho financeiro ou premiação.</b> O sistema oferece melhores oportunidades e diagnósticos matemáticos, mas o fator sorte permanece soberano em cada sorteio. A SuperLoterias API incentiva o jogo responsável e o uso desta ferramenta possui caráter puramente analítico.</p>
-    </footer>
-
-    <script src="script.js?v=8.0"></script>
-</body>
-</html>
+        <p style="
