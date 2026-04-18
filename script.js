@@ -1,5 +1,27 @@
 const API_URL = "https://loterias-v4-957072274278.southamerica-east1.run.app";
 
+// --- NOTIFICAÇÕES ELEGANTES (TOAST) ---
+function mostrarNotificacao(mensagem, tipo = 'sucesso') {
+    const corFundo = tipo === 'sucesso' ? '#2ecc71' : '#e74c3c';
+    const icone = tipo === 'sucesso' ? '✅' : '⚠️';
+    
+    const toast = document.createElement('div');
+    toast.innerHTML = `${icone} ${mensagem}`;
+    toast.style.cssText = `
+        position: fixed; top: 20px; right: -300px; background: ${corFundo}; color: black;
+        padding: 15px 20px; border-radius: 5px; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        z-index: 9999; transition: right 0.5s ease-in-out; font-family: sans-serif;
+    `;
+    
+    document.body.appendChild(toast);
+    
+    setTimeout(() => { toast.style.right = '20px'; }, 100);
+    setTimeout(() => {
+        toast.style.right = '-300px';
+        setTimeout(() => toast.remove(), 500);
+    }, 4000);
+}
+
 // --- CONTROLE DE MODAIS E INTERFACE ---
 function abrirModal() { document.getElementById('modal-login').style.display = 'flex'; }
 function fecharModal() { document.getElementById('modal-login').style.display = 'none'; }
@@ -18,8 +40,10 @@ function abrirContato() { document.getElementById('modal-contato').style.display
 function fecharContato() { document.getElementById('modal-contato').style.display = 'none'; }
 function abrirInstrucoes() { document.getElementById('modal-instrucoes').style.display = 'flex'; }
 function fecharInstrucoes() { document.getElementById('modal-instrucoes').style.display = 'none'; }
+function abrirPainel() { document.getElementById('modal-painel').style.display = 'flex'; carregarDadosPainel(); }
+function fecharPainel() { document.getElementById('modal-painel').style.display = 'none'; }
 
-// --- LÓGICA DE AUTENTICAÇÃO ---
+// --- LÓGICA DE AUTENTICAÇÃO E PAINEL ---
 async function fazerCadastro(event) {
     event.preventDefault();
     const nome = document.getElementById('nome_cad').value;
@@ -27,7 +51,7 @@ async function fazerCadastro(event) {
     const senha = document.getElementById('senha_cad').value;
 
     if (!nome || !email || !senha) {
-        alert("Preencha todos os campos!"); return;
+        mostrarNotificacao("Preencha todos os campos!", "erro"); return;
     }
 
     try {
@@ -38,13 +62,13 @@ async function fazerCadastro(event) {
         });
         const data = await response.json();
         if (response.ok) {
-            alert("Conta criada! Faça login.");
+            mostrarNotificacao("Conta criada! Verifique seu e-mail para ativar.", "sucesso");
             trocarParaLogin();
         } else {
-            alert("Atenção: " + (data.detail || data.error));
+            mostrarNotificacao("Atenção: " + (data.detail || data.error), "erro");
         }
     } catch (error) {
-        alert("Falha na conexão com o servidor.");
+        mostrarNotificacao("Falha na conexão com o servidor.", "erro");
     }
 }
 
@@ -53,7 +77,7 @@ async function fazerLogin(event) {
     const email = document.getElementById('email_login').value;
     const senha = document.getElementById('senha_login').value;
 
-    if (!email || !senha) { alert("Preencha e-mail e senha!"); return; }
+    if (!email || !senha) { mostrarNotificacao("Preencha e-mail e senha!", "erro"); return; }
 
     try {
         const response = await fetch(`${API_URL}/login`, {
@@ -65,27 +89,26 @@ async function fazerLogin(event) {
         if (response.ok) {
             localStorage.setItem('userEmail', email);
             localStorage.setItem('userSenha', senha);
-            alert(data.msg + " Acesso liberado!");
+            mostrarNotificacao(`Bem-vindo, ${email.split('@')[0]}! Acesso liberado.`, "sucesso");
             fecharModal(); 
+            atualizarInterfaceLogin();
         } else {
-            alert("Acesso Negado: " + data.detail);
+            mostrarNotificacao("Acesso Negado: " + data.detail, "erro");
         }
     } catch (error) {
-        alert("Falha ao conectar com o servidor.");
+        mostrarNotificacao("Falha ao conectar com o servidor.", "erro");
     }
 }
 
-// Verifica se tem alguém logado ao carregar a página
 function atualizarInterfaceLogin() {
     const emailLogado = localStorage.getItem('userEmail');
     const areaAuth = document.getElementById('area-autenticacao');
 
     if (emailLogado) {
-        // Pega só o primeiro nome antes do @ do email para ficar amigável
         const nomeUsuario = emailLogado.split('@')[0].toUpperCase();
         areaAuth.innerHTML = `
-            <span style="color: #2ecc71; font-weight: bold;">👤 Olá, ${nomeUsuario}</span>
-            <button onclick="fazerLogout()" style="padding: 6px 12px; background: #e74c3c; border: none; border-radius: 5px; color: white; font-weight: bold; cursor: pointer;">Sair</button>
+            <button onclick="abrirPainel()" style="padding: 8px 15px; background: #3498db; border: none; border-radius: 5px; color: white; font-weight: bold; cursor: pointer;">👤 ${nomeUsuario} (Painel)</button>
+            <button onclick="fazerLogout()" style="padding: 8px 15px; background: #e74c3c; border: none; border-radius: 5px; color: white; font-weight: bold; cursor: pointer;">Sair</button>
         `;
     } else {
         areaAuth.innerHTML = `
@@ -97,52 +120,81 @@ function atualizarInterfaceLogin() {
 function fazerLogout() {
     localStorage.removeItem('userEmail');
     localStorage.removeItem('userSenha');
-    alert("Você saiu do sistema. Até a próxima rodada de sorte!");
-    location.reload(); // Recarrega a página para limpar tudo
+    mostrarNotificacao("Você saiu do sistema. Até logo!", "sucesso");
+    setTimeout(() => location.reload(), 1500);
 }
 
-// Chamar a verificação assim que a página carrega
-window.addEventListener('load', atualizarInterfaceLogin);
+function carregarDadosPainel() {
+    const emailLogado = localStorage.getItem('userEmail');
+    if (!emailLogado) return;
+
+    let plano = "FREEMIUM";
+    let vencimento = "Vitalício";
+    let jogos = "Consulte a Cota";
+
+    if (emailLogado.includes("vip") || emailLogado === "egfiuza@gmail.com") {
+        plano = "👑 ELITE";
+        jogos = "Ilimitado";
+    }
+
+    document.getElementById('painel_plano').innerText = plano;
+    document.getElementById('painel_vencimento').innerText = vencimento;
+    document.getElementById('painel_jogos').innerText = jogos;
+}
+
+function verificarUpsellRetorno() {
+    const emailLogado = localStorage.getItem('userEmail');
+    if (!emailLogado || emailLogado.includes("vip") || emailLogado === "egfiuza@gmail.com") return;
+
+    const hoje = new Date().toDateString();
+    const ultimoAcesso = localStorage.getItem('ultimoAcesso');
+
+    if (ultimoAcesso && ultimoAcesso !== hoje) {
+        setTimeout(() => {
+            const querVip = confirm("Bem-vindo(a) de volta à SuperLoterias! 🍀\n\nQue tal dar um upgrade na sua sorte hoje e liberar acesso ilimitado?\n\nClique em 'OK' para ver os planos VIP ou 'Cancelar' para continuar no Freemium.");
+            if (querVip) document.getElementById('area-vip').scrollIntoView({ behavior: 'smooth' });
+        }, 1500);
+    }
+    localStorage.setItem('ultimoAcesso', hoje);
+}
 
 // --- LÓGICA DE GERAÇÃO DA IA ---
 async function gerarJogo(tipo) {
     const emailLogado = localStorage.getItem('userEmail');
     const senhaLogada = localStorage.getItem('userSenha');
     
-    // Pega a quantidade selecionada no dropdown. Se não achar, manda 0 (o backend usa o padrão)
     const selectQtd = document.getElementById(`qtd_${tipo}`);
     const qtdEscolhida = selectQtd ? parseInt(selectQtd.value) : 0; 
 
     if (!emailLogado || !senhaLogada) {
-        alert("Acesso Negado: Faça login primeiro para usar a IA!"); 
+        mostrarNotificacao("Acesso Negado: Faça login primeiro para usar a IA!", "erro"); 
         return;
     }
 
-    try {
-        const botao = document.getElementById(`btn_${tipo}`); 
-        botao.innerText = "Processando Matemática...";
+    const botao = document.getElementById(`btn_${tipo}`); 
+    botao.innerText = "Processando Matemática...";
 
+    try {
         const response = await fetch(`${API_URL}/gerar-palpite`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-                email: emailLogado, 
-                senha: senhaLogada, 
-                tipo: tipo,
-                qtd_dezenas: qtdEscolhida
-            })
+            body: JSON.stringify({ email: emailLogado, senha: senhaLogada, tipo: tipo, qtd_dezenas: qtdEscolhida })
         });
 
         const data = await response.json();
 
-        // Tratamento inteligente dos bloqueios do Backend
         if (response.status === 403) {
             if (data.detail && data.detail.includes("Elite")) {
-                alert("🔒 Essa funcionalidade de desdobramento exige o Plano ELITE (R$ 29,90). Faça o upgrade e jogue como os profissionais!");
+                mostrarNotificacao("Essa funcionalidade exige o Plano ELITE.", "erro");
             } else {
-                alert("⏱️ Limite de 3 testes gratuitos atingido. Garanta o Acesso Vitalício PRO para geração ilimitada!");
+                mostrarNotificacao("Seu Freemium acabou! Escolha um plano.", "erro");
             }
-            document.getElementById('area-vip').scrollIntoView({ behavior: 'smooth' });
+            
+            const areaVip = document.getElementById('area-vip');
+            areaVip.scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => { areaVip.style.backgroundColor = '#2c3e50'; }, 500);
+            setTimeout(() => { areaVip.style.backgroundColor = '#1a1a1a'; }, 1000);
+            
             botao.innerText = "Gerar Jogo Otimizado";
             return;
         }
@@ -151,7 +203,6 @@ async function gerarJogo(tipo) {
             const dezenasFormatadas = data.dezenas.map(d => d.toString().padStart(2, '0')).join(' - ');
             document.getElementById(`numeros_${tipo}`).innerText = dezenasFormatadas;
             
-            // Renderização do diagnóstico técnico
             document.getElementById(`analise_${tipo}`).innerHTML = `
                 <div style="background: #222; padding: 10px; border-radius: 5px; border: 1px solid #444; display: inline-block; text-align: center; margin-top: 8px;">
                     <span style="color: #3498db; font-weight: bold;">Gauss (Soma): ${data.analise.soma_gauss}</span> | 
@@ -163,14 +214,14 @@ async function gerarJogo(tipo) {
                     </div>
                 </div>
             `;
+            mostrarNotificacao("Jogo gerado com sucesso!", "sucesso");
         } else {
-            alert("Erro do Servidor: " + (data.detail || "Erro desconhecido"));
+            mostrarNotificacao("Erro do Servidor: " + (data.detail || "Erro desconhecido"), "erro");
         }
-        botao.innerText = "Gerar Jogo Otimizado";
     } catch (error) {
-        alert("Falha de comunicação com a Nuvem Google.");
-        document.getElementById(`btn_${tipo}`).innerText = "Gerar Jogo Otimizado";
+        mostrarNotificacao("Falha de comunicação com a Nuvem Google.", "erro");
     }
+    botao.innerText = "Gerar Jogo Otimizado";
 }
 
 // --- SISTEMA DE COMENTÁRIOS E DEPOIMENTOS ---
@@ -188,7 +239,7 @@ async function carregarComentarios() {
 
         comentarios.forEach(c => {
             lista.innerHTML += `
-                <div style="background: #2a2a2a; padding: 15px; border-radius: 8px; border-left: 4px solid #3498db;">
+                <div style="background: #2a2a2a; padding: 15px; border-radius: 8px; border-left: 4px solid #3498db; margin-bottom: 10px;">
                     <strong style="color: #fff;">${c.nome}</strong>
                     <p style="color: #aaa; margin: 5px 0 0 0; font-size: 14px;">${c.texto}</p>
                 </div>
@@ -204,7 +255,7 @@ async function enviarComentario() {
     const texto = document.getElementById('texto_comentario').value;
 
     if (!nome || !texto) {
-        alert("Preencha seu nome e o seu relato de uso!");
+        mostrarNotificacao("Preencha seu nome e o seu relato de uso!", "erro");
         return;
     }
 
@@ -219,12 +270,18 @@ async function enviarComentario() {
             document.getElementById('nome_comentario').value = '';
             document.getElementById('texto_comentario').value = '';
             carregarComentarios(); 
+            mostrarNotificacao("Comentário publicado com sucesso!", "sucesso");
         } else {
-            alert("Falha ao registrar o comentário.");
+            mostrarNotificacao("Falha ao registrar o comentário.", "erro");
         }
     } catch (error) {
-        alert("Falha de conexão com o servidor de comentários.");
+        mostrarNotificacao("Falha de conexão com o servidor de comentários.", "erro");
     }
 }
 
-window.onload = carregarComentarios;
+// INICIALIZAÇÃO DA PÁGINA
+window.addEventListener('load', () => {
+    atualizarInterfaceLogin();
+    verificarUpsellRetorno();
+    carregarComentarios();
+});
