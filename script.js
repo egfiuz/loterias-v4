@@ -75,6 +75,35 @@ async function fazerLogin(event) {
     }
 }
 
+// Verifica se tem alguém logado ao carregar a página
+function atualizarInterfaceLogin() {
+    const emailLogado = localStorage.getItem('userEmail');
+    const areaAuth = document.getElementById('area-autenticacao');
+
+    if (emailLogado) {
+        // Pega só o primeiro nome antes do @ do email para ficar amigável
+        const nomeUsuario = emailLogado.split('@')[0].toUpperCase();
+        areaAuth.innerHTML = `
+            <span style="color: #2ecc71; font-weight: bold;">👤 Olá, ${nomeUsuario}</span>
+            <button onclick="fazerLogout()" style="padding: 6px 12px; background: #e74c3c; border: none; border-radius: 5px; color: white; font-weight: bold; cursor: pointer;">Sair</button>
+        `;
+    } else {
+        areaAuth.innerHTML = `
+            <button class="btn-vip" onclick="abrirModal()" style="padding: 8px 15px; background: #f1c40f; border: none; border-radius: 5px; color: black; font-weight: bold; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">Entrar VIP</button>
+        `;
+    }
+}
+
+function fazerLogout() {
+    localStorage.removeItem('userEmail');
+    localStorage.removeItem('userSenha');
+    alert("Você saiu do sistema. Até a próxima rodada de sorte!");
+    location.reload(); // Recarrega a página para limpar tudo
+}
+
+// Chamar a verificação assim que a página carrega
+window.addEventListener('load', atualizarInterfaceLogin);
+
 // --- LÓGICA DE GERAÇÃO DA IA ---
 async function gerarJogo(tipo) {
     const emailLogado = localStorage.getItem('userEmail');
